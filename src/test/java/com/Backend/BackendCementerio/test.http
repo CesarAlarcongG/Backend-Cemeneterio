@@ -1,0 +1,9 @@
+POST http://localhost:8080/registro
+Content-Type: application/json
+
+{
+    "nombre" : "Cesar", 
+    "apellido" : "Alarcon", 
+    "correo" : "cesar@gmail.com",
+    "contraseña" : "tubebitomatador"
+}
