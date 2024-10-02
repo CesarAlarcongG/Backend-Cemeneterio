@@ -4,6 +4,6 @@ Content-Type: application/json
 {
     "nombre" : "Cesar", 
     "apellido" : "Alarcon", 
-    "correo" : "cesar@gmail.com",
+    "correo" : "cesar.ho@gmail.com",
     "contraseña" : "tubebitomatador"
 }

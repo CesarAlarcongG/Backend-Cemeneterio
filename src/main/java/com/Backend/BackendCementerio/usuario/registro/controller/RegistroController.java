@@ -8,26 +8,32 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Backend.BackendCementerio.usuario.persistence.model.Usuario;
+import com.Backend.BackendCementerio.usuario.registro.dto.UsuarioDto;
 import com.Backend.BackendCementerio.usuario.registro.service.interfaces.RegistroService;
 
 @RestController
-@RequestMapping("registro")
+@RequestMapping("/registro")
 public class RegistroController {
     @Autowired
     private RegistroService registroService;
 
     @PostMapping
-    public ResponseEntity<String> crearCuenta(@RequestBody Usuario usuario){
+    public ResponseEntity<String> crearCuenta(@RequestBody UsuarioDto usuarioDto){
 
-        if (registroService.verificarExistenciaDeCuenta(usuario.getCorreo())) {
-            //409
-            return new ResponseEntity<>("El correo ya fue registrado en otra cuenta", HttpStatus.CONFLICT);
+        if (!registroService.validarFormatoCorreo(usuarioDto.getCorreo())) {
+            // 400 
+            return new ResponseEntity<>("El formato del correo es inválido", HttpStatus.BAD_REQUEST);
         }
 
-        registroService.resgistrarCuenta(usuario);
+        if (registroService.verificarExistenciaDeCuenta(usuarioDto.getCorreo())) {
+            //409
+            return new ResponseEntity<>("El correo ya fue registrado en otra cuenta", HttpStatus.CONFLICT);
+        }else{
+            registroService.resgistrarCuenta(usuarioDto);
         //201
-        return new ResponseEntity<>("El correo ya fue registrado en otra cuenta", HttpStatus.CREATED);
+        return new ResponseEntity<>("Registro exitoso", HttpStatus.CREATED);
+        }
+
     }
 
 }
