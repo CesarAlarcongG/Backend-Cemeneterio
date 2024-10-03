@@ -1,6 +1,7 @@
 package com.Backend.BackendCementerio.usuario.registro.service.interfaces;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.Backend.BackendCementerio.usuario.persistence.model.Rol;
@@ -23,6 +24,8 @@ public class RegistroService implements RegistroImplements{
     private IRolRepository rolRepository;
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public boolean validarFormatoCorreo(String correo) {
@@ -43,9 +46,9 @@ public class RegistroService implements RegistroImplements{
 
     @Override
     public boolean verificarExistenciaDeCuenta(String correo) {
-        return uRepository.findByCorreo(correo) != null;
+        return uRepository.findByCorreo(correo).isPresent();
     }
-    
+
     /**
      * Método que almacena un usuario y llama a otro método para indicar el rol
      */
@@ -56,13 +59,13 @@ public class RegistroService implements RegistroImplements{
         usuario.setNombre(usDto.getNombre());
         usuario.setApellido(usDto.getApellido());
         usuario.setCorreo(usDto.getCorreo());
-        usuario.setContraseña(usDto.getContraseña());
+        // Codificar la contraseña
+        usuario.setContraseña(passwordEncoder.encode(usDto.getContraseña())); 
         registrarRolUsuario(usuario);
         uRepository.save(usuario);
 
         Token token = new Token(jwtService.getToken(usuario));
-
-        return  token;
+        return token;
     }
 
     @Override

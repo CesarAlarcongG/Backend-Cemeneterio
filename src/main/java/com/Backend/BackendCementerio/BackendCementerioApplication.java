@@ -14,7 +14,4 @@ public class BackendCementerioApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BackendCementerioApplication.class, args);
 	}
-
-	
-
 }

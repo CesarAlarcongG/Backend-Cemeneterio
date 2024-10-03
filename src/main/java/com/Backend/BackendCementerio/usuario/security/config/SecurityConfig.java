@@ -29,18 +29,18 @@ public class SecurityConfig {
         return http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authRequest -> authRequest
-                .requestMatchers("/registro", "/loggin").permitAll() //EndPoints que no necesitan permisos
-    
-                .anyRequest().authenticated()
+                .requestMatchers("/registro", "/loggin").permitAll() // Permitir acceso
+                .requestMatchers("/test/get", "/test/post").permitAll()
+                .anyRequest().authenticated() // Cualquier otro endpoint necesita autenticación
             )
             .sessionManagement(sessionManagement ->
-                sessionManagement
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authenticationProvider(authenticationProvider)
-                
+                sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authenticationProvider(authenticationProvider)  
             .addFilterBefore(jwtFiltro, UsernamePasswordAuthenticationFilter.class)
-    
             .build();
     }
+
+
+
 }
 

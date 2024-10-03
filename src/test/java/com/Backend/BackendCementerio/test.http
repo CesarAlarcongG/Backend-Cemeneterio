@@ -1,9 +1,30 @@
+###Registro
 POST http://localhost:8080/registro
 Content-Type: application/json
 
 {
-    "nombre" : "Cesar", 
-    "apellido" : "Alarcon", 
-    "correo" : "cesar.ho@gmail.com",
-    "contraseña" : "tubebitomatador"
+    "nombre" : "Carlos",
+    "apellido" : "Tumbas",
+    "correo" : "carlos@gmail.com",
+    "contraseña" : "tupedritomatador"
 }
+###Loggin
+POST http://localhost:8080/loggin
+Content-Type: application/json
+
+{
+    "correo" : "carlos@gmail.com",
+    "contraseña" : "tupedritomatador"
+}
+
+###Pruebas de endposint
+
+###
+GET http://localhost:8080/test/get
+
+###
+POST  http://localhost:8080/test/post
+
+###
+POST  http://localhost:8080/test/postP
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYXJsb3NAZ21haWwuY29tIiwiaWF0IjoxNzI3OTE1Njg4LCJleHAiOjE3Mjc5MTcxMjh9.LcAsisHGWysoViVsdAYSb-iXw4Loeu5xtofgJeyfdJg

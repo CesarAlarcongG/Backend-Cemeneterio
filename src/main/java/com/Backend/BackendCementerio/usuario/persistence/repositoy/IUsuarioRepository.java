@@ -10,8 +10,6 @@ import com.Backend.BackendCementerio.usuario.persistence.model.Usuario;
 public interface IUsuarioRepository extends JpaRepository<Usuario, Long>{
     //Registro
     Optional<Usuario> findByCorreo(String correo);
-
-
     //Loggin
 
 }

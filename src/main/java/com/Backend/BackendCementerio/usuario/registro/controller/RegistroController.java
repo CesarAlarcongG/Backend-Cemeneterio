@@ -21,19 +21,16 @@ public class RegistroController {
     public ResponseEntity<String> crearCuenta(@RequestBody UsuarioDto usuarioDto){
 
         if (!registroService.validarFormatoCorreo(usuarioDto.getCorreo())) {
-            // 400 
             return new ResponseEntity<>("El formato del correo es inválido", HttpStatus.BAD_REQUEST);
         }
 
         if (registroService.verificarExistenciaDeCuenta(usuarioDto.getCorreo())) {
-            //409
             return new ResponseEntity<>("El correo ya fue registrado en otra cuenta", HttpStatus.CONFLICT);
-        }else{
-            registroService.resgistrarCuenta(usuarioDto);
-        //201
-        return new ResponseEntity<>("Registro exitoso", HttpStatus.CREATED);
+        } else {
+            // Almacena el usuario y obtiene el token
+            String token = registroService.resgistrarCuenta(usuarioDto).getToken(); 
+            return new ResponseEntity<>("Registro exitoso. Token: " + token, HttpStatus.CREATED);
         }
-
     }
 
 }
