@@ -29,8 +29,8 @@ public class SecurityConfig {
         return http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authRequest -> authRequest
-                .requestMatchers("/registro", "/loggin").permitAll() // Permitir acceso
-                .requestMatchers("/test/get", "/test/post").permitAll()
+                .requestMatchers("/registro", "/loggin", "/api/reservatumba", "/api/reservamisa").permitAll() // Permitir acceso
+                .requestMatchers("/test/get", "/test/post").permitAll() //pruebas
                 .anyRequest().authenticated() // Cualquier otro endpoint necesita autenticación
             )
             .sessionManagement(sessionManagement ->
