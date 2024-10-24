@@ -37,11 +37,21 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
+	<!-- Bases de datos -->
+		<!--
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
    		</dependency>
+		-->
+
+		<!-- Base de dato de ejemplo - puede ser comentado, pero recuerda confifurar el pom-->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

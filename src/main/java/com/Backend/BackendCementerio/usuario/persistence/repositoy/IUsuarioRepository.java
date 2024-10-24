@@ -12,4 +12,8 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Long>{
     Optional<Usuario> findByCorreo(String correo);
     //Loggin
 
+
+
+    //registro de ingreso y salida de personal
+    boolean findByCorreoAndFecha(String correo, String fecha);
 }
