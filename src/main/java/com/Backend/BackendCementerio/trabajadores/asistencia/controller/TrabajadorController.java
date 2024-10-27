@@ -8,11 +8,9 @@ import com.Backend.BackendCementerio.trabajadores.persistencia.model.Trabajador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,8 +26,7 @@ public class TrabajadorController {
     @PostMapping
     public ResponseEntity<String> registrarAsistencia(@RequestBody CredencialesDTO credenciales) {
 
-        Optional<Trabajador> trabajadorOpt = trabajadorService.findByCodigo(credenciales.getCodigo());
-
+        Optional<Trabajador> trabajadorOpt = trabajadorService.findByDni(credenciales.getDni());
 
         if (!trabajadorOpt.isPresent()) {
             return new ResponseEntity<>("No existe el trabajador", HttpStatus.NOT_FOUND);
@@ -37,14 +34,10 @@ public class TrabajadorController {
 
         Trabajador trabajador = trabajadorOpt.get();
 
-
         Optional<RegistroHorario> registroOpt = registroHorarioService.findByTrabajadorAndFecha(trabajador, credenciales.getFecha());
 
         if (registroOpt.isPresent()) {
             RegistroHorario registro = registroOpt.get();
-
-
-
 
             // sssi ya tiene hora de ingreso pero qno tiene hora de salida actualizar la hora de salida
             if (registro.getHoraSalida() == null) {
@@ -58,9 +51,6 @@ public class TrabajadorController {
         } else {
 
 
-
-
-
             // si no tiene registro de asidtencia registrar la hora de ingreso
             RegistroHorario nuevoRegistro = new RegistroHorario();
             nuevoRegistro.setFecha(credenciales.getFecha());
@@ -69,7 +59,22 @@ public class TrabajadorController {
             registroHorarioService.guardarRegistroHorario(nuevoRegistro);
             return new ResponseEntity<>("Hora de ingreso registrada correctamente", HttpStatus.CREATED);
         }
+
     }
+
+    @PostMapping("/crear")
+    public ResponseEntity<String> crearTrabajador(@RequestBody List<Trabajador> trabajador){
+        return trabajadorService.crearTranajador(trabajador) ? new ResponseEntity<>("Trabajador creado", HttpStatus.CREATED) : new ResponseEntity<>("No se pudo crear al trabajador", HttpStatus.CONFLICT);
+    }
+    @GetMapping("/empleados")
+    public List<Trabajador> obtenerEmpleados(){
+        return trabajadorService.obtenerTrabajadores();
+    }
+
+    /**@GetMapping("/registro")
+    public List<Trabajador> obtenerPresentes(){
+
+    }**/
 }
 
 

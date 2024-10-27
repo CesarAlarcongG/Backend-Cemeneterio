@@ -1,5 +1,7 @@
 package com.Backend.BackendCementerio.trabajadores.persistencia.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +25,7 @@ public class RegistroHorario {
 
     @ManyToOne
     @JoinColumn(name = "trabajador_id")
+    @JsonBackReference // Indica que esta es la parte "de regreso" de la relación
     private Trabajador trabajador;
 }
 

@@ -1,5 +1,9 @@
 package com.Backend.BackendCementerio.trabajadores.persistencia.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +18,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Trabajador {
 
     @Id
@@ -28,6 +33,7 @@ public class Trabajador {
     private Cargo cargo;
 
     @OneToMany(mappedBy = "trabajador", cascade = CascadeType.ALL)
+    @JsonManagedReference // Indica que esta es la parte "administrada" de la relación
     private List<RegistroHorario> registroHorarios = new ArrayList<>();
 }
 

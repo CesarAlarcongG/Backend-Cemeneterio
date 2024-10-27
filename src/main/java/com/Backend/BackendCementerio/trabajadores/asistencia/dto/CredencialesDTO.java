@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CredencialesDTO {
 
-    private Long codigo;
+    private Long dni;
     private String hora;
     private String fecha;
 }
