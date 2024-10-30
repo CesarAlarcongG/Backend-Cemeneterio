@@ -15,7 +15,7 @@ public class BackendCementerioApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BackendCementerioApplication.class, args);
 	}
-	@Bean
+	/**@Bean
 	CommandLineRunner initDatabase(TrabajadorRespository trabajadorRepository) {
 		return args -> {
 			// Crear 10 empleados y guardarlos en la base de datos
@@ -29,5 +29,6 @@ public class BackendCementerioApplication {
 			trabajadorRepository.save(new Trabajador("Elena", "Diaz", 89012345L));
 			trabajadorRepository.save(new Trabajador("Miguel", "Ruiz", 90123456L));
 		};
-	}
+
+	}*/
 }

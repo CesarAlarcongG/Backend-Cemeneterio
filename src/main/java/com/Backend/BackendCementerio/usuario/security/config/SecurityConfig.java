@@ -29,7 +29,7 @@ public class SecurityConfig {
         return http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authRequest -> authRequest
-                .requestMatchers("/registro", "/loggin", "/api/reservatumba", "/api/reservamisa","/h2-console", "/asistencia/**").permitAll() // Permitir acceso
+                .requestMatchers("/registro", "/loggin", "/api/reservatumba", "/api/reservamisa","/h2-console", "/asistencia/**", "/trabajador/**").permitAll() // Permitir acceso
                 .requestMatchers("/test/get", "/test/post").permitAll() //pruebas
                     .requestMatchers("/asistencia/crear").permitAll()
                 .anyRequest().authenticated() // Cualquier otro endpoint necesita autenticación

@@ -55,26 +55,19 @@ public class TrabajadorController {
             RegistroHorario nuevoRegistro = new RegistroHorario();
             nuevoRegistro.setFecha(credenciales.getFecha());
             nuevoRegistro.setHoraIngreso(credenciales.getHora());
-            nuevoRegistro.setTrabajador(trabajador);  // Asociar al trabajador
+            nuevoRegistro.setTrabajador(trabajador);
             registroHorarioService.guardarRegistroHorario(nuevoRegistro);
             return new ResponseEntity<>("Hora de ingreso registrada correctamente", HttpStatus.CREATED);
         }
 
     }
 
-    @PostMapping("/crear")
-    public ResponseEntity<String> crearTrabajador(@RequestBody List<Trabajador> trabajador){
-        return trabajadorService.crearTranajador(trabajador) ? new ResponseEntity<>("Trabajador creado", HttpStatus.CREATED) : new ResponseEntity<>("No se pudo crear al trabajador", HttpStatus.CONFLICT);
-    }
+
     @GetMapping("/empleados")
     public List<Trabajador> obtenerEmpleados(){
         return trabajadorService.obtenerTrabajadores();
     }
 
-    /**@GetMapping("/registro")
-    public List<Trabajador> obtenerPresentes(){
-
-    }**/
 }
 
 
