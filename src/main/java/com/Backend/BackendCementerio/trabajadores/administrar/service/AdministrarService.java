@@ -41,14 +41,16 @@ public class AdministrarService {
             Trabajador guardado = trabajadorRepository.save(trabajador);
             return guardado != null;
         } catch (Exception e) {
-            e.printStackTrace(); // Imprime el stack trace para obtener más información sobre el error
+            e.printStackTrace();
             return false;
         }
     }
 
     public Optional<Trabajador> obtenerTrabajadorPorDni(Long dni) {
-        return trabajadorRepository.findByDni(dni); // Asumiendo que has definido este método en el repositorio
+        return trabajadorRepository.findByDni(dni);
     }
+
+
 
     public Iterable<Trabajador> obtenerTodosLosTrabajadores() {
         return trabajadorRepository.findAll();
@@ -60,7 +62,6 @@ public class AdministrarService {
         if (optionalTrabajador.isPresent()) {
             Trabajador trabajador = optionalTrabajador.get();
 
-            // Actualiza solo el nombre y apellido si se proporcionan
             if (trabajadorDTO.getNombre() != null) {
                 trabajador.setNombre(trabajadorDTO.getNombre());
             }
@@ -68,13 +69,12 @@ public class AdministrarService {
                 trabajador.setApellido(trabajadorDTO.getApellido());
             }
 
-            // Verifica si se proporciona un objeto Cargo en el DTO
+
             if (trabajadorDTO.getCargo() != null) {
                 Optional<Cargo> cargoOptional = cargoRepository.findById(trabajadorDTO.getCargo().getId());
                 if (cargoOptional.isPresent()) {
                     Cargo cargoExistente = cargoOptional.get();
 
-                    // Actualiza los campos de Cargo si han cambiado
                     if (trabajadorDTO.getCargo().getCargo() != null) {
                         cargoExistente.setCargo(trabajadorDTO.getCargo().getCargo());
                     }
@@ -90,8 +90,6 @@ public class AdministrarService {
                     throw new IllegalArgumentException("Cargo no encontrado con el id: " + trabajadorDTO.getCargo().getId());
                 }
             }
-
-            // Guarda el trabajador con los campos actualizados
             trabajadorRepository.save(trabajador);
             return true;
         }
