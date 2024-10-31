@@ -41,16 +41,6 @@ public class Trabajador {
     @JsonManagedReference
     private List<RegistroHorario> registroHorarios = new ArrayList<>();
 
-
-
-
-
-    //Es constructor es de ejemplo, podemos eliminarlo (su función es recibir 10 empleados)
-    public Trabajador(String nombre, String apellidos, Long dni){
-        this.nombre = nombre;
-        this.apellido = apellidos;
-        this.dni = dni;
-    }
 }
 
 

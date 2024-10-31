@@ -33,9 +33,8 @@ public class AdministrarService {
             cargo.setHoraEntrada(trabajadorDTO.getCargo().getHoraEntrada());
             cargo.setHoraSalida(trabajadorDTO.getCargo().getHoraSalida());
 
-            // Guardar el cargo en la base de datos primero
             Cargo cargoGuardado = cargoRepository.save(cargo);
-            trabajador.setCargo(cargoGuardado); // Asignar el cargo guardado al trabajador
+            trabajador.setCargo(cargoGuardado);
         }
 
         try {
@@ -60,6 +59,7 @@ public class AdministrarService {
 
         if (optionalTrabajador.isPresent()) {
             Trabajador trabajador = optionalTrabajador.get();
+
             // Actualiza solo el nombre y apellido si se proporcionan
             if (trabajadorDTO.getNombre() != null) {
                 trabajador.setNombre(trabajadorDTO.getNombre());
@@ -67,10 +67,28 @@ public class AdministrarService {
             if (trabajadorDTO.getApellido() != null) {
                 trabajador.setApellido(trabajadorDTO.getApellido());
             }
-            // No actualiza el DNI a menos que se envíe uno nuevo
-            // El campo cargo se actualiza solo si se proporciona un objeto Cargo en el DTO
+
+            // Verifica si se proporciona un objeto Cargo en el DTO
             if (trabajadorDTO.getCargo() != null) {
-                trabajador.setCargo(trabajadorDTO.getCargo());
+                Optional<Cargo> cargoOptional = cargoRepository.findById(trabajadorDTO.getCargo().getId());
+                if (cargoOptional.isPresent()) {
+                    Cargo cargoExistente = cargoOptional.get();
+
+                    // Actualiza los campos de Cargo si han cambiado
+                    if (trabajadorDTO.getCargo().getCargo() != null) {
+                        cargoExistente.setCargo(trabajadorDTO.getCargo().getCargo());
+                    }
+                    if (trabajadorDTO.getCargo().getHoraEntrada() != null) {
+                        cargoExistente.setHoraEntrada(trabajadorDTO.getCargo().getHoraEntrada());
+                    }
+                    if (trabajadorDTO.getCargo().getHoraSalida() != null) {
+                        cargoExistente.setHoraSalida(trabajadorDTO.getCargo().getHoraSalida());
+                    }
+
+                    trabajador.setCargo(cargoExistente);
+                } else {
+                    throw new IllegalArgumentException("Cargo no encontrado con el id: " + trabajadorDTO.getCargo().getId());
+                }
             }
 
             // Guarda el trabajador con los campos actualizados
@@ -79,6 +97,8 @@ public class AdministrarService {
         }
         return false;
     }
+
+
 
     public boolean eliminarTrabajador(Long dni) {
         Optional<Trabajador> trabajador = trabajadorRepository.findByDni(dni);
