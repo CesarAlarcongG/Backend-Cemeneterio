@@ -1,4 +1,4 @@
-package com.Backend.BackendCementerio.usuario.security.JWT;
+package com.Backend.BackendCementerio.config.security.jwt;
 
 import java.security.Key;
 import java.util.HashMap;

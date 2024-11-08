@@ -23,5 +23,4 @@ public class LogginController {
         return ResponseEntity.ok( logginService.loggin(usuarioDTO));
     }
 
-
 }

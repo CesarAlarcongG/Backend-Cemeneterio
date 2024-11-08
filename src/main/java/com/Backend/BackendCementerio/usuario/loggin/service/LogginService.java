@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.Backend.BackendCementerio.usuario.persistence.model.Token;
 import com.Backend.BackendCementerio.usuario.persistence.repositoy.IUsuarioRepository;
-import com.Backend.BackendCementerio.usuario.security.JWT.JwtService;
+import com.Backend.BackendCementerio.config.security.jwt.JwtService;
 
 
 @Service

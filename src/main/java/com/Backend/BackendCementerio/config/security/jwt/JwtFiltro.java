@@ -1,8 +1,7 @@
-package com.Backend.BackendCementerio.usuario.security.JWT;
+package com.Backend.BackendCementerio.config.security.jwt;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,24 +18,27 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtFiltro extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    // Constructor para inyectar las dependencias
+    public JwtFiltro(JwtService jwtService, UserDetailsService userDetailsService) {
+        this.jwtService = jwtService;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         final String token = getToken(request);
-        
+
         if (token != null) {
             System.out.println("Token recibido: " + token);
-            
+
             if (jwtService.isTokenValid(token)) {
                 String username = jwtService.extractUsername(token);
                 System.out.println("Usuario extraído del token: " + username);
-                
+
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                 if (userDetails != null) {
                     // Crea el contexto de seguridad
@@ -54,7 +56,6 @@ public class JwtFiltro extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-
     private String getToken(HttpServletRequest request) {
         final String authCabecera = request.getHeader(org.springframework.http.HttpHeaders.AUTHORIZATION);
         if (StringUtils.hasText(authCabecera) && authCabecera.startsWith("Bearer ")) {
@@ -63,4 +64,3 @@ public class JwtFiltro extends OncePerRequestFilter {
         return null;
     }
 }
-

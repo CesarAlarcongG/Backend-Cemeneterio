@@ -97,7 +97,6 @@ public class AdministrarService {
     }
 
 
-
     public boolean eliminarTrabajador(Long dni) {
         Optional<Trabajador> trabajador = trabajadorRepository.findByDni(dni);
         if (trabajador.isPresent()) {
@@ -105,5 +104,9 @@ public class AdministrarService {
             return true;
         }
         return false;
+    }
+
+    public boolean esDniValido(Long dni) {
+        return dni != null && dni >= 10_000_000 && dni <= 99_999_999;
     }
 }

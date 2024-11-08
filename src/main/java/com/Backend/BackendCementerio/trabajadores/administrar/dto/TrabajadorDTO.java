@@ -14,6 +14,7 @@ public class TrabajadorDTO {
 
     private String nombre;
     private String apellido;
+
     private Long dni;
 
     private Cargo cargo;

@@ -12,7 +12,7 @@ import com.Backend.BackendCementerio.usuario.persistence.repositoy.IRolRepositor
 import com.Backend.BackendCementerio.usuario.persistence.repositoy.IUsuarioRepository;
 import com.Backend.BackendCementerio.usuario.registro.dto.UsuarioDto;
 import com.Backend.BackendCementerio.usuario.registro.service.implement.RegistroImplements;
-import com.Backend.BackendCementerio.usuario.security.JWT.JwtService;
+import com.Backend.BackendCementerio.config.security.jwt.JwtService;
 
 
 @Service

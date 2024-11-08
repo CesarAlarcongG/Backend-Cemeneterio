@@ -1,5 +1,6 @@
 package com.Backend.BackendCementerio.usuario.registro.controller;
 
+import com.Backend.BackendCementerio.usuario.persistence.model.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,8 @@ public class RegistroController {
             return new ResponseEntity<>("El correo ya fue registrado en otra cuenta", HttpStatus.CONFLICT);
         } else {
             // Almacena el usuario y obtiene el token
-            String token = registroService.resgistrarCuenta(usuarioDto).getToken(); 
-            return new ResponseEntity<>("Registro exitoso. Token: " + token, HttpStatus.CREATED);
+            String token = registroService.resgistrarCuenta(usuarioDto).getToken();
+            return new ResponseEntity<>("Registro exitoso.\nToken: " + token, HttpStatus.CREATED);
         }
     }
 

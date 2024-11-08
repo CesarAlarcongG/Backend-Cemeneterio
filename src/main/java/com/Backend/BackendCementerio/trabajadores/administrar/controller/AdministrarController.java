@@ -18,19 +18,30 @@ public class AdministrarController {
 
     @Autowired
     private AdministrarService administrarService;
-
+    /**
+     * Este método permite crear un nuevo trabajador, pero antes, debe de pasar por un conjunto de filtros
+     * */
     @PostMapping("/crear")
     public ResponseEntity<String> crearTrabajador(@RequestBody TrabajadorDTO trabajadorDTO) {
-        // Verificar si ya existe un trabajador con el mismo DNI
+
+        //1. Validamos is el dni tiene 8 digitos
+        if (administrarService.esDniValido(trabajadorDTO.getDni()) == false ){
+            return new ResponseEntity<>("El dni debe tener 8 digitos", HttpStatus.BAD_REQUEST);
+        }
+
+
+        // 2. Verificar si ya existe un trabajador con el mismo DNI
         Optional<Trabajador> trabajadorExistente = administrarService.obtenerTrabajadorPorDni(trabajadorDTO.getDni());
 
+            //si existe devolvemos un mejase de error y finalizamos el proceso con este endpoint
         if (trabajadorExistente.isPresent()) {
             return new ResponseEntity<>("Ya existe un trabajador con el DNI proporcionado", HttpStatus.CONFLICT);
         }
 
-        // Si no existe, proceder a crear el trabajador
+            // Si no existe usamos el metodo "crearTrabajador" que valida si el trabajador fue creado con exito o no devolviendo un boleano
         boolean creado = administrarService.crearTrabajador(trabajadorDTO);
 
+                //Validamos lo que el meotodo devolvio para poder responder a la petición.
         return creado ?
                 new ResponseEntity<>("Trabajador creado", HttpStatus.CREATED) :
                 new ResponseEntity<>("No se pudo crear al trabajador", HttpStatus.CONFLICT);
