@@ -37,8 +37,10 @@ public class JwtService {
     public boolean isTokenValid(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token); // Usa la misma clave
+            System.out.println("Se valido correcta mente -------------------------------------------------");
             return true;
         } catch (JwtException | IllegalArgumentException e) {
+            System.out.println("Hay un problema con la validación ----------------------------------------");
             return false;
         }
     }

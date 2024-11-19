@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Backend.BackendCementerio.usuario.loggin.service.LogginService;
-import com.Backend.BackendCementerio.usuario.persistence.model.Token;
+import com.Backend.BackendCementerio.config.security.jwt.Token.Token;
 
 
 @RestController

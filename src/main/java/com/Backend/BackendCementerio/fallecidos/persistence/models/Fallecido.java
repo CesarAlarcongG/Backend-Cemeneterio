@@ -1,18 +1,30 @@
 
 package com.Backend.BackendCementerio.fallecidos.persistence.models;
 
+import com.Backend.BackendCementerio.usuario.persistence.model.Usuario;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Fallecido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id_fallecido")
     private Long idFallecido;
 
     @Column(nullable = false, length = 50)
-    private String nombres;
+    private String nombre;
 
     @Column(nullable = false, length = 50)
     private String apellidos;
@@ -23,44 +35,14 @@ public class Fallecido {
     @Column(nullable = false)
     private Date fechaFallecimiento;
 
-    // Getters y Setters
-    public Long getIdFallecido() {
-        return idFallecido;
-    }
+    @OneToOne
+    @JoinColumn(name = "id_tumba", referencedColumnName = "id_tumba")
+    private Tumba tumba;
 
-    public void setIdFallecido(Long idFallecido) {
-        this.idFallecido = idFallecido;
-    }
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    @JsonBackReference
+    private Usuario usuario; // Relación inversa
 
-    public String getNombres() {
-        return nombres;
-    }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public Date getFechaFallecimiento() {
-        return fechaFallecimiento;
-    }
-
-    public void setFechaFallecimiento(Date fechaFallecimiento) {
-        this.fechaFallecimiento = fechaFallecimiento;
-    }
 }

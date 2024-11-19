@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Backend.BackendCementerio.usuario.persistence.model.Rol;
-import com.Backend.BackendCementerio.usuario.persistence.model.RolEnum;
+import com.Backend.BackendCementerio.usuario.persistence.model.Enums.RolEnum;
 import com.Backend.BackendCementerio.usuario.persistence.repositoy.IRolRepository;
 
 import jakarta.annotation.PostConstruct;
@@ -14,7 +14,7 @@ public class UsuarioRolService {
     @Autowired
     private IRolRepository rol;
 
-     @PostConstruct
+    @PostConstruct
     public void initDatabase() {
         if (rol.count() == 0) {
             Rol rolUsuario = new Rol();

@@ -1,7 +1,7 @@
 package com.Backend.BackendCementerio.usuario.registro.service.implement;
 
 
-import com.Backend.BackendCementerio.usuario.persistence.model.Token;
+import com.Backend.BackendCementerio.config.security.jwt.Token.Token;
 import com.Backend.BackendCementerio.usuario.persistence.model.Usuario;
 import com.Backend.BackendCementerio.usuario.registro.dto.UsuarioDto;
 

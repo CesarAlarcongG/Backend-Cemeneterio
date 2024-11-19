@@ -1,9 +1,7 @@
 package com.Backend.BackendCementerio.test;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/test")
@@ -26,6 +24,11 @@ public class ControllerTest {
     @PostMapping("/postP")
     public String postPrivado() {
         return "Este es un endpoint privado";
+    }
+
+    @PostMapping("/json")
+    public ResponseEntity<Prueba> pruebaTokenYJson(@RequestBody Prueba prueba){
+        return ResponseEntity.ok( prueba);
     }
 }
 

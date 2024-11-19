@@ -1,6 +1,5 @@
 package com.Backend.BackendCementerio.usuario.registro.controller;
 
-import com.Backend.BackendCementerio.usuario.persistence.model.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

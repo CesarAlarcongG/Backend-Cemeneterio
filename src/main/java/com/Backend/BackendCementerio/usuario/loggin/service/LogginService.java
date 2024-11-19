@@ -7,7 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.Backend.BackendCementerio.usuario.persistence.model.Token;
+import com.Backend.BackendCementerio.config.security.jwt.Token.Token;
 import com.Backend.BackendCementerio.usuario.persistence.repositoy.IUsuarioRepository;
 import com.Backend.BackendCementerio.config.security.jwt.JwtService;
 
@@ -22,6 +22,8 @@ public class LogginService {
     @Autowired
     private JwtService jwtService;
 
+
+
     public Token loggin(CredencialesUsuarioDTO credencialesDTO){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credencialesDTO.getCorreo(), credencialesDTO.getContraseña()));
         UserDetails user = uRepository.findByCorreo(credencialesDTO.getCorreo()).orElseThrow();
@@ -29,5 +31,8 @@ public class LogginService {
         Token token = new Token (stringToken);
         return token;
     }
+
+
+
 
 }

@@ -27,9 +27,10 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
 
     @Autowired
-    private final JwtService jwtService; // Inyecta JwtService aquí
+    private final JwtService jwtService;
     @Autowired
     private final IUsuarioRepository usuarioRepository;
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
@@ -38,16 +39,31 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authRequest -> authRequest
-                        .requestMatchers("/api/reservatumba", "/api/reservamisa", "/h2-console", "/asistencia/**", "/trabajador/**", "/asistencia/crear")
-                        .permitAll()
-                        .requestMatchers("/test/get", "/test/post", "/registro", "/loggin").permitAll()
+
+                        //------------end Point Publicos
+                        //Loggin y registro - Usuario
+                        .requestMatchers( "/registro","/loggin/**", "/auth/**", "/test/json").permitAll()
+
+
+                        //------------end Point Privados
+                        //Servicios
+                        .requestMatchers("/servicio/**").authenticated()
+                        //Fallecidos
+                        .requestMatchers("/fallecidos/**").authenticated()
+
+                        //Pruebas
+                        //.requestMatchers("/test/json").permitAll()
+
                         .anyRequest().authenticated()
+
+
                 )
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtFiltro, UsernamePasswordAuthenticationFilter.class)
+
                 .build();
     }
 

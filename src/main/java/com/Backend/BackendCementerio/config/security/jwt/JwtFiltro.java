@@ -55,7 +55,6 @@ public class JwtFiltro extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-
     private String getToken(HttpServletRequest request) {
         final String authCabecera = request.getHeader(org.springframework.http.HttpHeaders.AUTHORIZATION);
         if (StringUtils.hasText(authCabecera) && authCabecera.startsWith("Bearer ")) {
@@ -63,4 +62,6 @@ public class JwtFiltro extends OncePerRequestFilter {
         }
         return null;
     }
+
+
 }
