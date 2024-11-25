@@ -13,9 +13,4 @@ public interface IUsuarioRepository extends JpaRepository<Usuario, Long>{
     //Registro
     Optional<Usuario> findByCorreo(String correo);
 
-    //Loggin
-    Optional<Usuario> findByGoogleId(String googleId);
-
-    Optional<Fallecido> findFallecidoByNombre(String nombre);
-
 }

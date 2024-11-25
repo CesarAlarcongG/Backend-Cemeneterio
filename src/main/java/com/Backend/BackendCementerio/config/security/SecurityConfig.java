@@ -52,7 +52,7 @@ public class SecurityConfig {
                         .requestMatchers("/fallecidos/**").authenticated()
 
                         //Pruebas
-                        //.requestMatchers("/test/json").permitAll()
+                        .requestMatchers("/test/usuarios").permitAll()
 
                         .anyRequest().authenticated()
 

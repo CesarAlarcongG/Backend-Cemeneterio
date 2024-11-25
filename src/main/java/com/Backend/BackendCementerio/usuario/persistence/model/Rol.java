@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "rol")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,14 +27,14 @@ public class Rol {
     @Column(unique = true, nullable = false)
     private RolEnum rol;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "Rol_Permisos",
+            name = "rol_permisos",
             joinColumns = @JoinColumn(name = "id_rol"),
             inverseJoinColumns = @JoinColumn(name = "id_permiso")
     )
     @JsonManagedReference
     private Set<Permisos> permisos;
-
 }
+
 

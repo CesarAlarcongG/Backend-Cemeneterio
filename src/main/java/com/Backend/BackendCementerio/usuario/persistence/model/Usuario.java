@@ -32,7 +32,7 @@ public class Usuario implements UserDetails {
     private String correo;
     private String contraseña;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_rol", referencedColumnName = "id_rol")
     private Rol rol;
 
