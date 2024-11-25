@@ -2,6 +2,7 @@ package com.Backend.BackendCementerio.usuario.auth.controller;
 
 import com.Backend.BackendCementerio.config.security.jwt.JwtService;
 import com.Backend.BackendCementerio.config.security.jwt.Token.Token;
+import com.Backend.BackendCementerio.usuario.General.ResponseController;
 import com.Backend.BackendCementerio.usuario.auth.dto.AuthTokenDTO;
 import com.Backend.BackendCementerio.usuario.auth.service.AuthService;
 import com.Backend.BackendCementerio.usuario.persistence.model.Usuario;
@@ -48,9 +49,12 @@ public class AuthController {
             Usuario usuario = authService.findOrRegisterUser(email, name);
 
             // Generar el JWT
-            String jwt = jwtService.getToken(usuario);
+            Token jwt = new Token(jwtService.getToken(usuario));
 
-            return ResponseEntity.ok(new Token(jwt));
+            //Generamos la clase de respuesta
+            ResponseController response = new ResponseController(jwt, usuario);
+
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al autenticar");

@@ -20,7 +20,8 @@ public class FallecidoService {
 
     public List<Fallecido> traerFallecidosDeUsuarios(String correo) {
         Usuario usuario = usuarioRepository.findByCorreo(correo).get();
-        List<Fallecido> fallecidos = usuario.getFallecidos();
+
+        List<Fallecido> fallecidos = fallecidoRepository.findByUsuario(usuario);
 
         return fallecidos;
     }

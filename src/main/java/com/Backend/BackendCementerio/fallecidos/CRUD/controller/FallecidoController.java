@@ -19,10 +19,11 @@ public class FallecidoController {
     @Autowired
     private FallecidoService fallecidoService;
 
-    @GetMapping("/fallecidosU")
-    public List<Fallecido> traerFallecidosDeUsuario(@RequestBody String correo) {
+    @GetMapping("/lista")
+    public List<Fallecido> traerFallecidosDeUsuario(@RequestParam String correo) {
         return fallecidoService.traerFallecidosDeUsuarios(correo);
     }
+
 
     @GetMapping("/{id}")
     public Optional<Fallecido> getFallecidoById(@PathVariable Long id) {
