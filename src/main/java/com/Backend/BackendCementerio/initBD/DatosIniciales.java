@@ -2,9 +2,11 @@ package com.Backend.BackendCementerio.initBD;
 
 import com.Backend.BackendCementerio.negocio.persistencia.models.EstadoServicio;
 import com.Backend.BackendCementerio.negocio.persistencia.models.Servicios;
+import com.Backend.BackendCementerio.negocio.persistencia.models.TipoServicio;
 import com.Backend.BackendCementerio.negocio.persistencia.models.enums.EstadoServicioEnum;
 import com.Backend.BackendCementerio.negocio.persistencia.repositories.EstadoServicioRepository;
 import com.Backend.BackendCementerio.negocio.persistencia.repositories.ServicioRepository;
+import com.Backend.BackendCementerio.negocio.persistencia.repositories.TipoServicioRepository;
 import com.Backend.BackendCementerio.usuario.persistence.model.Enums.PermisoEnum;
 import com.Backend.BackendCementerio.usuario.persistence.model.Enums.RolEnum;
 import com.Backend.BackendCementerio.usuario.persistence.model.Permisos;
@@ -26,6 +28,8 @@ public class DatosIniciales {
     private ServicioRepository servicioRepository;
     @Autowired
     private EstadoServicioRepository estadoServicioRepository;
+    @Autowired
+    private TipoServicioRepository tipoServicioRepository;
 
     @PostConstruct
     public void initDatabase() {
@@ -65,63 +69,78 @@ public class DatosIniciales {
             permisos.save(permisoEliminar);
         }
 
-        // Inicializar datos en la tabla Servicios
+        // Inicializar datos de servicios
         if (servicioRepository.count() == 0) {
 
-            Servicios misaRequiem = new Servicios();
-            misaRequiem.setNombre("Misas de Réquiem");
-            misaRequiem.setCosto(350.0f); // Precio base
-            servicioRepository.save(misaRequiem);
+            Servicios misa = new Servicios();
+            misa.setNombre("Misa");
+            servicioRepository.save(misa);
 
-            Servicios misaAniversario = new Servicios();
-            misaAniversario.setNombre("Misa de Aniversario");
-            misaAniversario.setCosto(300.0f); // Precio base
-            servicioRepository.save(misaAniversario);
+            Servicios nicho = new Servicios();
+            nicho.setNombre("Nicho");
+            servicioRepository.save(nicho);
 
-            Servicios misaCuerpoPresente = new Servicios();
-            misaCuerpoPresente.setNombre("Misa de Cuerpo Presente");
-            misaCuerpoPresente.setCosto(500.0f); // Precio base
-            servicioRepository.save(misaCuerpoPresente);
-
-            Servicios misaNovenario = new Servicios();
-            misaNovenario.setNombre("Misa de Novenario");
-            misaNovenario.setCosto(2000.0f); // Precio por novenario completo
-            servicioRepository.save(misaNovenario);
-
-            Servicios misaIntenciones = new Servicios();
-            misaIntenciones.setNombre("Misa de Intenciones Especiales");
-            misaIntenciones.setCosto(250.0f); // Precio base
-            servicioRepository.save(misaIntenciones);
-
-/**
- * ***********************************************************************************************
- */
-            // Servicios - Nichos
-            Servicios nichoIndividual = new Servicios();
-            nichoIndividual.setNombre("Nicho Individual");
-            nichoIndividual.setCosto(3000.0f); // Costo por el nicho individual
-            servicioRepository.save(nichoIndividual);
-
-            Servicios nichoFamiliar = new Servicios();
-            nichoFamiliar.setNombre("Nicho Familiar");
-            nichoFamiliar.setCosto(8500.0f); // Costo por el nicho familiar
-            servicioRepository.save(nichoFamiliar);
-
-            Servicios nichoConmemorativo = new Servicios();
-            nichoConmemorativo.setNombre("Nicho Conmemorativo");
-            nichoConmemorativo.setCosto(2000.0f); // Costo por el nicho conmemorativo
-            servicioRepository.save(nichoConmemorativo);
-
-            Servicios nichoPremium = new Servicios();
-            nichoPremium.setNombre("Nicho Premium");
-            nichoPremium.setCosto(12000.0f); // Costo por el nicho premium
-            servicioRepository.save(nichoPremium);
-
-            Servicios nichoTemporal = new Servicios();
-            nichoTemporal.setNombre("Nicho Temporal");
-            nichoTemporal.setCosto(1500.0f); // Costo por el nicho temporal
-            servicioRepository.save(nichoTemporal);
         }
+
+        // Inicializar datos en la tabla TipoServicio
+        if (tipoServicioRepository.count() == 0) {
+
+            // Servicios - Misas
+            TipoServicio misaRequiem = new TipoServicio();
+            misaRequiem.setTipoServicio("Misas de Réquiem");
+            misaRequiem.setCosto(350.0f); // Precio base
+            tipoServicioRepository.save(misaRequiem);
+
+            TipoServicio misaAniversario = new TipoServicio();
+            misaAniversario.setTipoServicio("Misa de Aniversario");
+            misaAniversario.setCosto(300.0f); // Precio base
+            tipoServicioRepository.save(misaAniversario);
+
+            TipoServicio misaCuerpoPresente = new TipoServicio();
+            misaCuerpoPresente.setTipoServicio("Misa de Cuerpo Presente");
+            misaCuerpoPresente.setCosto(500.0f); // Precio base
+            tipoServicioRepository.save(misaCuerpoPresente);
+
+            TipoServicio misaNovenario = new TipoServicio();
+            misaNovenario.setTipoServicio("Misa de Acción De Gracias");
+            misaNovenario.setCosto(2000.0f); // Precio por novenario completo
+            tipoServicioRepository.save(misaNovenario);
+
+            TipoServicio misaIntenciones = new TipoServicio();
+            misaIntenciones.setTipoServicio("Misa de Intenciones Especiales");
+            misaIntenciones.setCosto(250.0f); // Precio base
+            tipoServicioRepository.save(misaIntenciones);
+
+            /**
+             * ***********************************************************************************************
+             */
+            // Servicios - Nichos
+            TipoServicio nichoIndividual = new TipoServicio();
+            nichoIndividual.setTipoServicio("Nicho Individual");
+            nichoIndividual.setCosto(3000.0f); // Costo por el nicho individual
+            tipoServicioRepository.save(nichoIndividual);
+
+            TipoServicio nichoFamiliar = new TipoServicio();
+            nichoFamiliar.setTipoServicio("Nicho Familiar");
+            nichoFamiliar.setCosto(8500.0f); // Costo por el nicho familiar
+            tipoServicioRepository.save(nichoFamiliar);
+
+            TipoServicio nichoConmemorativo = new TipoServicio();
+            nichoConmemorativo.setTipoServicio("Nicho Conmemorativo");
+            nichoConmemorativo.setCosto(2000.0f); // Costo por el nicho conmemorativo
+            tipoServicioRepository.save(nichoConmemorativo);
+
+            TipoServicio nichoPremium = new TipoServicio();
+            nichoPremium.setTipoServicio("Nicho Premium");
+            nichoPremium.setCosto(12000.0f); // Costo por el nicho premium
+            tipoServicioRepository.save(nichoPremium);
+
+            TipoServicio nichoTemporal = new TipoServicio();
+            nichoTemporal.setTipoServicio("Nicho Temporal");
+            nichoTemporal.setCosto(1500.0f); // Costo por el nicho temporal
+            tipoServicioRepository.save(nichoTemporal);
+        }
+
         //Valores de la Tabla EstadoServicio
         if (estadoServicioRepository.count() == 0) {
 

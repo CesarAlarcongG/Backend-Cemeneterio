@@ -11,15 +11,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * A modo de prueba hemos consideado recibir cualquier petición desde cualquier servidor.
  */
 
-@Configuration
-@EnableWebMvc
-public class CorsConfig implements WebMvcConfigurer{
 
+public class CorsConfig implements WebMvcConfigurer{
+/**
     @Override
-    public void addCorsMappings(CorsRegistry corsRegistry){
+    public void addCorsMappings(CorsRegistry corsRegistry) {
         corsRegistry.addMapping("/**")
-            .allowedOrigins("*")
-            .allowedMethods("*");
+                .allowedOriginPatterns("*")// Permitir todos los orígenes
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*")
+                .exposedHeaders("Authorization") // Si necesitas exponer el token o encabezados personalizados
+                .allowCredentials(true);
     }
-    
+*/
 }

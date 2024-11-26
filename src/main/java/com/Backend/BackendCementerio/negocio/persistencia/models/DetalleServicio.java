@@ -28,19 +28,19 @@ public class DetalleServicio {
 
     private float totalPagar;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_servicio", referencedColumnName = "id_servicio")
     private Servicios servicios;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_fallecido", referencedColumnName = "id_fallecido")
     private Fallecido fallecido;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_estado_servicio", referencedColumnName = "id_estado_servicio")
     private EstadoServicio estadoServicio;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     private Usuario usuario;
 

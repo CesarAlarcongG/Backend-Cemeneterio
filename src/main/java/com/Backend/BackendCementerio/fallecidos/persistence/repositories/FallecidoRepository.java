@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface FallecidoRepository extends JpaRepository<Fallecido, Long> {
     Optional<Fallecido> findByNombre(String nombre);
 
-    Optional<Fallecido> findByUsuario_CorreoAndNombre(String correoUsuario, String nombreFallecido);
+    Optional<Fallecido> findByUsuario_CorreoAndIdFallecido(String correoUsuario, Long idFallecido);
 
     List<Fallecido> findByUsuario(Usuario usuario);
 }

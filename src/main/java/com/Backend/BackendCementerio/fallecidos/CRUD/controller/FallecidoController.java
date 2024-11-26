@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5500")
 @RequestMapping("/fallecidos")
 public class FallecidoController {
 

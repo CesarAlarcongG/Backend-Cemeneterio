@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -20,5 +22,7 @@ public class Servicios {
     @Column(length = 50)
     private String nombre;
 
-    private float costo;
+    @OneToMany
+    private List<TipoServicio> tipoServicio;
+
 }
