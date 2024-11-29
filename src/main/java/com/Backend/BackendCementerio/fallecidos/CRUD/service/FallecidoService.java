@@ -55,8 +55,21 @@ public class FallecidoService {
         return usuario;
     }
 
-    public Fallecido updateFallecido(Long id, Fallecido fallecido) {
-        fallecido.setIdFallecido(id);
+    public Fallecido modificarFallecido(FallecidoDTO fallecidoDTO) {
+        
+        Fallecido fallecido = fallecidoRepository.findById(fallecidoDTO.getId()).get();
+        
+        //validamos los campos nulos
+        if (fallecidoDTO.getNombre() != null){
+            fallecido.setNombre(fallecidoDTO.getNombre());
+        }else if (fallecidoDTO.getApellidos() != null){
+            fallecido.setApellidos(fallecidoDTO.getApellidos());
+        } else if (fallecidoDTO.getFechaNacimiento() != null) {
+            fallecido.setFechaNacimiento(fallecidoDTO.getFechaNacimiento());
+        } else if (fallecidoDTO.getFechaFallecimiento() != null) {
+            fallecido.setFechaFallecimiento(fallecidoDTO.getFechaFallecimiento());
+        }
+
         return fallecidoRepository.save(fallecido);
     }
 

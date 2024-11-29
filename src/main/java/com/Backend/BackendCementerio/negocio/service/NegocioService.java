@@ -109,7 +109,17 @@ public class NegocioService {
         }
         return serv;
     }
+    //encontrar usuario por correo
+    public Usuario encontrarUsuario(String correo){
+        return usuarioRepository.findByCorreo(correo)
+                .orElseThrow(()-> new IllegalArgumentException("No hay este usuario"));
+    }
 
+    //Traer las reservas por usuario
+    public List<DetalleServicio> reservaDeUsuario(Usuario usuario){
+        return detalleServicioRepository.findAllByUsuario(usuario);
+
+    }
 
 
 }

@@ -37,12 +37,12 @@ public class FallecidoController {
         return ResponseEntity.ok(fallecidoService.crearFallecido(fallecido));
     }
 
-    @PutMapping("/{id}")
-    public Fallecido updateFallecido(@PathVariable Long id, @RequestBody Fallecido fallecido) {
-        return fallecidoService.updateFallecido(id, fallecido);
+    @PutMapping("/modificar")
+    public Fallecido modificarFallecido(@RequestBody FallecidoDTO fallecido) {
+        return fallecidoService.modificarFallecido(fallecido);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("eliminar/{id}")
     public void deleteFallecido(@PathVariable Long id) {
         fallecidoService.deleteFallecido(id);
     }

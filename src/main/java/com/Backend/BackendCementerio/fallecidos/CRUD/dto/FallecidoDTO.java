@@ -14,6 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FallecidoDTO {
+    private Long id;
 
     private String correo;
 

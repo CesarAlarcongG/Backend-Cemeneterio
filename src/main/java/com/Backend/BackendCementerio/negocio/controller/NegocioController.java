@@ -4,7 +4,9 @@ import com.Backend.BackendCementerio.negocio.dto.ResponseHorasDto;
 import com.Backend.BackendCementerio.negocio.dto.ServicioDTO;
 import com.Backend.BackendCementerio.negocio.persistencia.models.DetalleServicio;
 import com.Backend.BackendCementerio.negocio.persistencia.models.Servicios;
+import com.Backend.BackendCementerio.negocio.persistencia.repositories.DetalleServicioRepository;
 import com.Backend.BackendCementerio.negocio.service.NegocioService;
+import com.Backend.BackendCementerio.usuario.persistence.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -18,8 +20,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/servicio")
 public class NegocioController {
+
     @Autowired
     private NegocioService negocioService;
+
 
     @PostMapping()
     public ResponseEntity<?> reservarServicio(@RequestBody ServicioDTO servicio){
@@ -42,10 +46,18 @@ public class NegocioController {
 
     }
 
-
     @GetMapping("/horarios")
     public List<ResponseHorasDto> listaHorasReservadas(@RequestParam String fecha){
      return negocioService.obtenerHorasReservadas(fecha);
+    }
+
+    @GetMapping("/reservas")
+    public List<DetalleServicio> listaDeServicios(@RequestParam String correo){
+        //Primero ubicamos al usuario
+        Usuario usuario = negocioService.encontrarUsuario(correo);
+        System.out.println("El correo:"+correo);
+        //Traemos a los servicios en base al usuario encontrado
+        return negocioService.reservaDeUsuario(usuario);
     }
 
 }
